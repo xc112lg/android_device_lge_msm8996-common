@@ -161,6 +161,9 @@ BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
 PRODUCT_PRIVATE_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/private
 SELINUX_IGNORE_NEVERALLOWS := true
 
+# Treble
+PRODUCT_FULL_TREBLE_OVERRIDE := true
+
 # Verity
 # Only needed for signing
 BOARD_AVB_ENABLE := false
