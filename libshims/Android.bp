@@ -63,3 +63,21 @@ cc_library_shared {
     ],
     include_dirs: ["system/media/private/camera/include"],
 }
+
+// libandroid
+cc_library_shared {
+    name: "libshims_android",
+    proprietary: true,
+    defaults: ["hidl_defaults"],
+    srcs: [
+        "libshims_android.cpp",
+    ],
+    cflags: [
+        "-Werror",
+        "-Wextra",
+        "-Wall",
+    ],
+    shared_libs: [
+        "libutils",
+    ],
+}
