@@ -327,10 +327,6 @@ PRODUCT_PACKAGES += \
     fastbootd \
     librecovery_updater_msm8996
 
-# RenderScript
-PRODUCT_PACKAGES += \
-    android.hardware.renderscript@1.0-impl
-
 # RIL
 PRODUCT_PACKAGES += \
     CarrierConfigOverlay \
