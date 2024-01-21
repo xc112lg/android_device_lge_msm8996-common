@@ -1,4 +1,5 @@
-# Policy for the TimeKeep Java app. It listens to a BootReceiver
+# Polf
+icy for the TimeKeep Java app. It listens to a BootReceiver
 # or TIME_SET event and calculates the offset between the rtc clock
 # in /sys/class/rtc0/since_epoch and the current device time and stores that
 # value in /data/vendor/time/ats_2 and as persist.vendor.timeadjust.
