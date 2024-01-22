@@ -26,3 +26,4 @@ set_prop(timekeep_app, vendor_timekeep_prop)
 
 r_dir_file(timekeep_app, sysfs_rtc)
 allow timekeep_app proc_vmallocinfo:file r_file_perms;
+
