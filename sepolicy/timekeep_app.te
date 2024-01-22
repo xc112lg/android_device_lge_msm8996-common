@@ -32,4 +32,6 @@ allow timekeep_app vendor_time_data_file:dir create_dir_perms;
 allow timekeep_app vendor_time_data_file:file create_file_perms;
 
 allow timekeep_app system_data_file:dir r_dir_perms;
+allow timekeep_app vendor_time_data_file:dir { search write add_name create };
+allow timekeep_app vendor_time_data_file:file { create write open };
 
