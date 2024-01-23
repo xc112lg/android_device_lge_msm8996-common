@@ -22,3 +22,12 @@ allow timekeep sysfs:file r_file_perms;
 # Read /sys/class/rtc/rtc0/since_epoch
 allow timekeep sysfs_rtc:dir search;
 allow timekeep sysfs_rtc:{ file lnk_file } r_file_perms;
+
+
+
+allow timekeep { sysfs sysfs_rtc }:dir r_dir_perms;
+allow timekeep { sysfs sysfs_rtc }:{ file lnk_file } r_file_perms;
+
+# Set the persist.vendor.timeadjust property
+
+allow timekeep proc_vmallocinfo:file r_file_perms;
