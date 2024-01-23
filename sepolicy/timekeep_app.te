@@ -28,7 +28,7 @@ r_dir_file(timekeep_app, sysfs_rtc)
 allow timekeep_app proc_vmallocinfo:file r_file_perms;
 allow timekeep_app sysfs_rtc:file r_file_perms;
 allow timekeep_app system_data_file:dir r_dir_perms;
-allow timekeep_app sysfs:file r_file_perms;
+#allow timekeep_app sysfs:file r_file_perms;
 
 
 
