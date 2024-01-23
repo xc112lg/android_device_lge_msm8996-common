@@ -16,5 +16,5 @@ allow init property_socket:property_service set;
 #allow init firmware_file:dir { create_dir_perms setattr };
 #allow firmware_file rootfs:filesystem associate;
 
-allow init sysfs_rtc:file create;
-allow init sysfs_rtc_restart:file create;
+allow init sysfs_msm_subsys:file create;
+allow init sysfs_msm_subsys_restart:file create;
