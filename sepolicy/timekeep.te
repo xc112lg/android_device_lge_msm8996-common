@@ -19,6 +19,7 @@ set_prop(timekeep, vendor_timekeep_prop)
 
 allow timekeep sysfs:file r_file_perms;
 allow timekeep sysfs:dir r_dir_perms;
+allow timekeep system_data_file:dir r_dir_perms;
 
 # Read /sys/class/rtc/rtc0/since_epoch
 allow timekeep sysfs_rtc:dir search;
