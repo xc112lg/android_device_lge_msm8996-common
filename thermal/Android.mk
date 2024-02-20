@@ -20,9 +20,13 @@ include $(CLEAR_VARS)
 LOCAL_CFLAGS := -Wno-unused-parameter
 LOCAL_MODULE_RELATIVE_PATH := hw
 LOCAL_SRC_FILES := thermal.c
+LOCAL_SRC_FILES += thermal-8996.c
+SUPPORT_THERMAL_HAL:=1
 LOCAL_SHARED_LIBRARIES := liblog libcutils
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := thermal.msm8996
 LOCAL_VENDOR_MODULE := true
 LOCAL_HEADER_LIBRARIES := libutils_headers libhardware_headers
+LOCAL_HEADER_LIBRARIES := libhardware_headers
 include $(BUILD_SHARED_LIBRARY)
+
