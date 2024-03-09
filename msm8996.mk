@@ -253,10 +253,9 @@ PRODUCT_PACKAGES += \
     vendor.lineage.livedisplay@2.0-service-sdm \
     vendor.lineage.livedisplay@2.0-service-sysfs
 
-# Health
+# Lineage Health
 PRODUCT_PACKAGES += \
-    android.hardware.health@2.1-impl:64 \
-    android.hardware.health@2.1-service
+    vendor.lineage.health-service.default
 
 # Media
 PRODUCT_COPY_FILES += \
