@@ -133,7 +133,7 @@ PRODUCT_PACKAGES += \
 
 # Display
 PRODUCT_PACKAGES += \
-    android.hardware.graphics.allocator@2.0-impl:64 \
+    android.hardware.graphics.allocator@2.0-impl \
     android.hardware.graphics.allocator@2.0-service \
     android.hardware.graphics.composer@2.1-service \
     android.hardware.graphics.mapper@2.0-impl-2.1 \
@@ -250,8 +250,8 @@ PRODUCT_PACKAGES += \
 
 # LiveDisplay
 PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay@2.0-service-sdm \
-    vendor.lineage.livedisplay@2.0-service-sysfs
+    vendor.lineage.livedisplay@2.0-service-sdm
+#@    vendor.lineage.livedisplay@2.0-service-sysfs
 
 # Lineage Health
 PRODUCT_PACKAGES += \
@@ -456,18 +456,23 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml
 
 # Speed up apps
+#PRODUCT_DEXPREOPT_SPEED_APPS += \
+#   Settings \
+#   SystemUI \
+#   Launcher3QuickStep \
+
+# Dex preopt
 PRODUCT_DEXPREOPT_SPEED_APPS += \
-   Settings \
-   SystemUI \
-   Launcher3QuickStep \
+    NexusLauncherRelease \
+    SettingsGoogle \
+    SystemUIGoogle
 
-# PRODUCT_DEXPREOPT_SPEED_APPS += \
-#     NexusLauncherRelease \
-#     SettingsGoogle \
-#     SystemUIGoogle
+# HWUI
+HWUI_COMPILE_FOR_PERF := true
 
-
-
+# Remove unwanted packages
+PRODUCT_PACKAGES += \
+    RemovePackages
 
 
 PRODUCT_COPY_FILES += \
