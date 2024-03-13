@@ -20,9 +20,6 @@ COMMON_PATH := device/lge/msm8996-common
 # Inherit from the proprietary version
 include vendor/lge/msm8996-common/BoardConfigVendor.mk
 
-VICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
-    vendor/lineage/config/device_framework_matrix.xml
-
 
 # BUILD_BROKEN_*
 BUILD_BROKEN_DUP_RULES := true
