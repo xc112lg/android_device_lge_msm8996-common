@@ -434,3 +434,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml
+
+
+
+# Speed up apps
+PRODUCT_DEXPREOPT_SPEED_APPS += \
+   Settings \
+   SystemUI \
+   Launcher3QuickStep \
+   UnifiedSettingsApp
