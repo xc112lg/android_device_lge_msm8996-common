@@ -25,6 +25,7 @@ PRODUCT_AAPT_PREF_CONFIG := 560dpi
 # APEX
 # Disable APEX compression
 # Keep this after including updatable_apex.mk
+$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 PRODUCT_COMPRESSED_APEX := false
 
 
