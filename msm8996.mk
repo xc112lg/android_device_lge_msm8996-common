@@ -466,8 +466,8 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
 HWUI_COMPILE_FOR_PERF := true
 
 # Remove unwanted packages
-PRODUCT_PACKAGES += \
-    RemovePackages
+#PRODUCT_PACKAGES += \
+#    RemovePackages
 
 
 PRODUCT_COPY_FILES += \
