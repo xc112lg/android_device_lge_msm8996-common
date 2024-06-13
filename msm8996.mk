@@ -170,7 +170,8 @@ PRODUCT_PACKAGES += \
 # Gatekeeper
 PRODUCT_PACKAGES += \
     android.hardware.gatekeeper@1.0-impl \
-    android.hardware.gatekeeper@1.0-service
+    android.hardware.gatekeeper@1.0-service \
+    libion.vendor
 
 # Gesture Handler
 PRODUCT_PACKAGES += \
@@ -212,6 +213,7 @@ PRODUCT_PACKAGES += \
     android.hidl.base@1.0 \
     android.hidl.manager@1.0 \
     android.hidl.manager-V1.0-java \
+    libhidlmemory.vendor \
     libhidltransport \
     libhwbinder
 
@@ -291,8 +293,7 @@ PRODUCT_PACKAGES += \
     libOmxVdec \
     libOmxVenc \
     libOmxVidcCommon \
-    libstagefrighthw \
-    libstagefright_soft_flacdec
+    libstagefrighthw
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
@@ -337,7 +338,10 @@ PRODUCT_PACKAGES += \
     libprotobuf-cpp-full \
     libqti_vndfwk_detect \
     librmnetctl \
-    android.hardware.radio@1.4-service.legacy
+    android.hardware.radio@1.4-service.legacy \
+    libnetutils.vendor \
+    libsqlite.vendor \
+    libsysutils.vendor
 
 # Seccomp policy
 PRODUCT_COPY_FILES += \
