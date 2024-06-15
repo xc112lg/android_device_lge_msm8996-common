@@ -436,8 +436,8 @@ PRODUCT_COPY_FILES += \
 
 
 # Remove unwanted packages
-PRODUCT_PACKAGES += \
-    RemovePackages
+#PRODUCT_PACKAGES += \
+#    RemovePackages
 
 
 # Device-specific settings
