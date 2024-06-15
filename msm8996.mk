@@ -440,3 +440,9 @@ PRODUCT_COPY_FILES += \
 # Remove unwanted packages
 PRODUCT_PACKAGES += \
     RemovePackages
+
+
+# Device-specific settings
+PRODUCT_PACKAGES += \
+    XiaomiParts
+
