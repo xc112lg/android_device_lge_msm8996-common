@@ -174,7 +174,7 @@ PRODUCT_PACKAGES += \
     GestureHandler
 
 # GMS
-PRODUCT_GMS_CLIENTID_BASE := android-om-lg
+#PRODUCT_GMS_CLIENTID_BASE := android-om-lg
 
 # GPS
 PRODUCT_PACKAGES += \
