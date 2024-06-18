@@ -175,7 +175,7 @@ PRODUCT_PACKAGES += \
 
 # GMS
 #PRODUCT_GMS_CLIENTID_BASE := android-om-lg
-
+PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 # GPS
 PRODUCT_PACKAGES += \
     android.hardware.gnss@2.0-impl-qti \
