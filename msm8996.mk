@@ -19,6 +19,7 @@
 $(call inherit-product, vendor/lge/msm8996-common/msm8996-common-vendor.mk)
 
 PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := true
+PRODUCT_COMPRESSED_APEX := false
 
 # AAPT
 PRODUCT_AAPT_CONFIG := normal
