@@ -164,6 +164,9 @@ SELINUX_IGNORE_NEVERALLOWS := true
 # Treble
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 
+# Vendor Security Patch level
+VENDOR_SECURITY_PATCH := 2018-11-01
+
 # Verity
 # Only needed for signing
 BOARD_AVB_ENABLE := false
