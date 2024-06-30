@@ -18,6 +18,13 @@
 # Inherit proprietary blobs
 $(call inherit-product, vendor/lge/msm8996-common/msm8996-common-vendor.mk)
 
+
+
+$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
+# Disable APEX compression
+# Keep this after including updatable_apex.mk
+PRODUCT_COMPRESSED_APEX := false
+
 PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := true
 
 # AAPT
