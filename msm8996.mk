@@ -13,7 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
+# AOSP14
 
 # Inherit proprietary blobs
 $(call inherit-product, vendor/lge/msm8996-common/msm8996-common-vendor.mk)
