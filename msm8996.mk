@@ -125,6 +125,7 @@ PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
 # Device-specific Init-files
 PRODUCT_PACKAGES += \
     fstab.qcom \
+    fstab.qcom.ramdisk \
     init.qcom.rc \
     init.qcom.sh \
     init.qcom.sensors.sh \
