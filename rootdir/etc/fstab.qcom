@@ -7,7 +7,7 @@
 
 #<src>                                                <mnt_point>       <type>  <mnt_flags and options>                                                   <fs_mgr_flags>
 /dev/block/by-name/system                             /system           ext4    ro,barrier=1,noatime                                                      wait,verify,first_stage_mount
-/dev/block/by-name/recoverybak                        /metadata         ext4    noatime,nosuid,nodev,discard                                              wait,check,formattable,first_stage_mount
+/dev/block/by-name/recoverybak                        /metadata         ext4    noatime,nosuid,nodev,discard,data=journal,commit=1                        wait,check,formattable,first_stage_mount
 
 /dev/block/bootdevice/by-name/boot                    /boot             emmc    defaults                                                                  defaults
 /dev/block/bootdevice/by-name/recovery                /recovery         emmc    defaults                                                                  defaults
