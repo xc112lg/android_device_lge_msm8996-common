@@ -92,6 +92,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.stagefright.ccodec=1 \
     vendor.display.disable_scaler=1
 
+# eBPF
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.bpf.kver_override=5.4.299
+
 # Factory Reset Protection (FRP)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.frp.pst=/dev/block/platform/soc/624000.ufshc/by-name/persistent
