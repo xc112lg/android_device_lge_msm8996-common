@@ -1,0 +1,4 @@
+filegroup {
+    name: "vnd_lge_msm8996.txt",
+    srcs: ["vnd_lge_msm8996.txt"],
+}
