@@ -64,6 +64,11 @@ function blob_fixup() {
     vendor/lib/libmmcamera_faceproc2.so)
         "${PATCHELF_0_18}" --set-soname "libmmcamera_faceproc2.so" "${2}"
         ;;
+    vendor/lib/libbwfocuspeaking.so)
+        if [ "${DEVICE_COMMON}" = "g5-common" ] || [ "${DEVICE_COMMON}" = "v20-common" ]; then
+            grep -q libshim_bwfocus.so "${2}" || "${PATCHELF_0_18}" --add-needed "libshim_bwfocus.so" "${2}"
+        fi
+        ;;
     vendor/lib/libmmcamera_hdr_gb_lib.so)
         "${PATCHELF_0_18}" --replace-needed "libstdc++.so" "libstdc++_vendor.so" "${2}"
         grep -q liblog.so "${2}" || "${PATCHELF_0_18}" --add-needed "liblog.so" "${2}"

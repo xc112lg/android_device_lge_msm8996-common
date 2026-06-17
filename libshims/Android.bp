@@ -27,3 +27,17 @@ cc_library_shared {
     compile_multilib: "32",
     system_ext_specific: true,
 }
+
+cc_library_shared {
+    name: "libshim_bwfocus",
+
+    srcs: ["bwfocus_shim.c"],
+
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+
+    compile_multilib: "32",
+    vendor: true,
+}
