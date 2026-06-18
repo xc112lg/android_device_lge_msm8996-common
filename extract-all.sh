@@ -43,6 +43,7 @@ declare -A TARGETS=(
   [h830]="$ALICE_O_H830"
   [h850]="$ALICE_O_H850"
   [h870]="$LUCYE_O_H870"
+  [h870d]="$LUCYE_O_H870"
   [h872]="$LUCYE_O_H872"
   [h918]="$ELSA_O_H918"
   [h990]="$ELSA_O_H990"
@@ -100,6 +101,6 @@ done
 ( cd ../h850 && ./extract-files.sh --only-extract --only-device-common "${ALICE_O_H850}" )
 
 ## Extract for all target trees (stable order)
-for dir in h830 h850 h870 h872 h918 h990 us996 us996d us997 vs995; do
+for dir in h830 h850 h870 h870d h872 h918 h990 us996 us996d us997 vs995; do
   ( cd "../$dir" && ./extract-files.sh --only-target "${TARGETS[$dir]}" )
 done
