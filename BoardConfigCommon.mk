@@ -90,9 +90,6 @@ TARGET_BOOTLOADER_BOARD_NAME := MSM8996
 TARGET_NO_BOOTLOADER := true
 
 # Camera
-TARGET_LD_SHIM_LIBS := \
-    /system/vendor/lib/hw/camera.msm8996.so|/system/vendor/lib/libshim_camera.so \
-    /system/vendor/lib/libmmcamera_ppeiscore.so|/system/vendor/lib/libshim_camera.so
 USE_CAMERA_STUB := true
 
 # Display
