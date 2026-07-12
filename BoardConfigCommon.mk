@@ -105,8 +105,7 @@ LOC_HIDL_VERSION := 3.0
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
     $(COMMON_PATH)/framework_compatibility_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
-    hardware/qcom-caf/common/vendor_framework_compatibility_matrix_legacy.xml \
-    vendor/lineage/config/device_framework_matrix.xml
+    hardware/qcom-caf/common/vendor_framework_compatibility_matrix_legacy.xml
 
 DEVICE_MANIFEST_FILE := $(COMMON_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := $(COMMON_PATH)/compatibility_matrix.xml
@@ -166,6 +165,7 @@ BOARD_AVB_ENABLE := false
 
 # Wi-Fi
 BOARD_WLAN_DEVICE := bcmdhd
+TARGET_USES_HARDWARE_QCOM_WLAN := false
 BOARD_HOSTAPD_DRIVER := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
