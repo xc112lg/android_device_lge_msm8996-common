@@ -36,6 +36,7 @@ LOCAL_MODULE_TAGS  := optional
 LOCAL_MODULE_CLASS := EXECUTABLES
 LOCAL_SRC_FILES    := bin/init.qcom.sh
 LOCAL_VENDOR_MODULE    := true
+LOCAL_CHECK_ELF_FILES := false
 # init.radio.sh is defined in variant trees
 LOCAL_REQUIRED_MODULES := init.radio.sh
 include $(BUILD_PREBUILT)
@@ -46,6 +47,7 @@ LOCAL_MODULE_TAGS  := optional
 LOCAL_MODULE_CLASS := EXECUTABLES
 LOCAL_SRC_FILES    := bin/init.qcom.sensors.sh
 LOCAL_VENDOR_MODULE    := true
+LOCAL_CHECK_ELF_FILES := false
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
