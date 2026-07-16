@@ -105,11 +105,31 @@ LOC_HIDL_VERSION := 3.0
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE := \
     $(COMMON_PATH)/framework_compatibility_matrix.xml \
     hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml \
-    hardware/qcom-caf/common/vendor_framework_compatibility_matrix_legacy.xml
+    hardware/qcom-caf/common/vendor_framework_compatibility_matrix_legacy.xml \
+    vendor/lineage/config/device_framework_matrix.xml
 
 DEVICE_MANIFEST_FILE := $(COMMON_PATH)/manifest.xml
 DEVICE_MATRIX_FILE := $(COMMON_PATH)/compatibility_matrix.xml
 TARGET_FS_CONFIG_GEN += $(COMMON_PATH)/config.fs
+
+# Treble
+# This was the real gap vs. the Xiaomi msm8996-common tree that's
+# actually running Android 16 on the same SoC: that tree sets both of
+# these, this one set neither. Without them the device isn't actually
+# operating as a full-Treble target, which is what the framework
+# expects a device declaring this manifest to be.
+PRODUCT_FULL_TREBLE_OVERRIDE := true
+BOARD_VNDK_VERSION := current
+
+# Only takes effect once full Treble is on; matches the reference
+# tree's layout so product/system_ext content lands in their own
+# partitions instead of falling back to legacy /system/product,
+# /system/system_ext. msm8996.mk already references
+# $(TARGET_COPY_OUT_PRODUCT) / $(TARGET_COPY_OUT_SYSTEM_EXT) in its
+# PRODUCT_COPY_FILES rules, but neither was ever actually defined here
+# -- they were silently resolving to the build system's default.
+TARGET_COPY_OUT_PRODUCT := product
+TARGET_COPY_OUT_SYSTEM_EXT := system_ext
 
 # IR
 TARGET_USE_LGE_IR := true
@@ -133,23 +153,22 @@ BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_USERIMAGES_USE_EXT4 := true
 
 # Dynamic Partitions
-# IMPORTANT: unlike blossom (which shipped stock with a super partition),
-# these devices shipped with a fixed, separate system/vendor/cache
-# partition table from LG. Setting these flags does NOT retroactively
-# repartition real hardware -- you still need a device-specific
-# fastboot/TWRP repartition step (or keep AB_OTA_UPDATER-style separate
-# partitions and skip dynamic partitions entirely). Do not just copy
-# these into a per-device tree without checking that device's actual
-# partition table first.
-BOARD_ROOT_EXTRA_FOLDERS += metadata
-BOARD_USES_METADATA_PARTITION := true
-BOARD_SUPER_PARTITION_GROUPS := main
-BOARD_MAIN_PARTITION_LIST := system vendor
-# BOARD_SUPER_PARTITION_SIZE and BOARD_MAIN_SIZE are intentionally left
-# unset here -- define them in the per-device BoardConfig.mk based on
-# that device's real usable flash size, e.g.:
-#   BOARD_SUPER_PARTITION_SIZE := <device usable bytes>
-#   BOARD_MAIN_SIZE := $(BOARD_SUPER_PARTITION_SIZE)
+# Uses the same BOARD_QTI_DYNAMIC_PARTITIONS_* scheme as the reference
+# Xiaomi msm8996-common tree (Qualcomm's own extension, not the plain
+# AOSP BOARD_SUPER_PARTITION_GROUPS/BOARD_MAIN_PARTITION_LIST scheme).
+# The sizes below are copied from that reference tree's real hardware
+# and are almost certainly wrong for LG's actual partition table --
+# these devices shipped with a fixed, separate factory partition
+# layout, not a super partition. Confirm real usable sizes for your
+# specific device (V20/G5/etc. differ) before using these, or this
+# will produce an image that doesn't fit / doesn't flash.
+BOARD_SUPER_PARTITION_BLOCK_DEVICES := system
+BOARD_SUPER_PARTITION_METADATA_DEVICE := system
+BOARD_SUPER_PARTITION_SIZE := 4093640704
+BOARD_SUPER_PARTITION_SYSTEM_DEVICE_SIZE := 4093640704
+BOARD_SUPER_PARTITION_GROUPS := qti_dynamic_partitions
+BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := odm product system system_ext vendor
+BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 4089446400 # (BOARD_SUPER_PARTITION_SIZE - 4MiB overhead)
 
 # Power
 TARGET_HAS_NO_WLAN_STATS := true
@@ -176,36 +195,18 @@ include device/qcom/sepolicy-legacy-um/SEPolicy.mk
 include hardware/sony/timekeep/sepolicy/SEPolicy.mk
 BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
 PRODUCT_PRIVATE_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/private
-# SELINUX_IGNORE_NEVERALLOWS was removed on purpose. It was masking real
-# neverallow violations against modern sepolicy. Re-enabling it will make
-# the build fail on every violation it was hiding -- that's the point.
-# Work through them one at a time (`m selinux_policy` to isolate) instead
-# of re-adding this line.
+# SELinux was carrying SELINUX_IGNORE_NEVERALLOWS := true here on purpose
+# to mask real neverallow violations. Removed -- the same-SoC Xiaomi
+# msm8996-common tree that actually builds/boots on Android 16 doesn't
+# set this either, using the same device/qcom/sepolicy-legacy-um base.
+# If removing this breaks your build, fix the specific denials rather
+# than re-adding the bypass.
 
-# Verity / AVB
-BOARD_AVB_ENABLE := true
-BOARD_AVB_ALGORITHM := SHA256_RSA4096
-BOARD_AVB_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
-BOARD_AVB_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
-BOARD_AVB_ROLLBACK_INDEX_LOCATION := 1
-
-BOARD_AVB_VBMETA_SYSTEM := system
-BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
-BOARD_AVB_VBMETA_SYSTEM_ALGORITHM := SHA256_RSA2048
-BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
-BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
-
-BOARD_AVB_VBMETA_VENDOR := vendor
-BOARD_AVB_VBMETA_VENDOR_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
-BOARD_AVB_VBMETA_VENDOR_ALGORITHM := SHA256_RSA2048
-BOARD_AVB_VBMETA_VENDOR_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
-BOARD_AVB_VBMETA_VENDOR_ROLLBACK_INDEX_LOCATION := 3
-# NOTE: this device's bootloader does not itself enforce AVB (unlike
-# blossom's), so this buys you recovery/OTA-side footer verification and
-# a working `avbctl`/vbmeta chain, not locked-bootloader verified boot.
-# If you have real signing keys for this device, replace the testkey
-# paths above -- shipping with AOSP's public test keys is fine for
-# personal builds only.
+# Verity
+# Only needed for signing
+# Confirmed against the same-SoC Android 16 Xiaomi msm8996-common tree:
+# it also ships with AVB disabled. Not a gap, leave as is.
+BOARD_AVB_ENABLE := false
 
 # Wi-Fi
 BOARD_WLAN_DEVICE := bcmdhd
