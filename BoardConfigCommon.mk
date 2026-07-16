@@ -132,6 +132,25 @@ BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_USERIMAGES_USE_EXT4 := true
 
+# Dynamic Partitions
+# IMPORTANT: unlike blossom (which shipped stock with a super partition),
+# these devices shipped with a fixed, separate system/vendor/cache
+# partition table from LG. Setting these flags does NOT retroactively
+# repartition real hardware -- you still need a device-specific
+# fastboot/TWRP repartition step (or keep AB_OTA_UPDATER-style separate
+# partitions and skip dynamic partitions entirely). Do not just copy
+# these into a per-device tree without checking that device's actual
+# partition table first.
+BOARD_ROOT_EXTRA_FOLDERS += metadata
+BOARD_USES_METADATA_PARTITION := true
+BOARD_SUPER_PARTITION_GROUPS := main
+BOARD_MAIN_PARTITION_LIST := system vendor
+# BOARD_SUPER_PARTITION_SIZE and BOARD_MAIN_SIZE are intentionally left
+# unset here -- define them in the per-device BoardConfig.mk based on
+# that device's real usable flash size, e.g.:
+#   BOARD_SUPER_PARTITION_SIZE := <device usable bytes>
+#   BOARD_MAIN_SIZE := $(BOARD_SUPER_PARTITION_SIZE)
+
 # Power
 TARGET_HAS_NO_WLAN_STATS := true
 
@@ -157,11 +176,36 @@ include device/qcom/sepolicy-legacy-um/SEPolicy.mk
 include hardware/sony/timekeep/sepolicy/SEPolicy.mk
 BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
 PRODUCT_PRIVATE_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/private
-SELINUX_IGNORE_NEVERALLOWS := true
+# SELINUX_IGNORE_NEVERALLOWS was removed on purpose. It was masking real
+# neverallow violations against modern sepolicy. Re-enabling it will make
+# the build fail on every violation it was hiding -- that's the point.
+# Work through them one at a time (`m selinux_policy` to isolate) instead
+# of re-adding this line.
 
-# Verity
-# Only needed for signing
-BOARD_AVB_ENABLE := false
+# Verity / AVB
+BOARD_AVB_ENABLE := true
+BOARD_AVB_ALGORITHM := SHA256_RSA4096
+BOARD_AVB_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
+BOARD_AVB_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+BOARD_AVB_ROLLBACK_INDEX_LOCATION := 1
+
+BOARD_AVB_VBMETA_SYSTEM := system
+BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
+BOARD_AVB_VBMETA_SYSTEM_ALGORITHM := SHA256_RSA2048
+BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
+
+BOARD_AVB_VBMETA_VENDOR := vendor
+BOARD_AVB_VBMETA_VENDOR_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
+BOARD_AVB_VBMETA_VENDOR_ALGORITHM := SHA256_RSA2048
+BOARD_AVB_VBMETA_VENDOR_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
+BOARD_AVB_VBMETA_VENDOR_ROLLBACK_INDEX_LOCATION := 3
+# NOTE: this device's bootloader does not itself enforce AVB (unlike
+# blossom's), so this buys you recovery/OTA-side footer verification and
+# a working `avbctl`/vbmeta chain, not locked-bootloader verified boot.
+# If you have real signing keys for this device, replace the testkey
+# paths above -- shipping with AOSP's public test keys is fine for
+# personal builds only.
 
 # Wi-Fi
 BOARD_WLAN_DEVICE := bcmdhd

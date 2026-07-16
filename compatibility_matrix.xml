@@ -1,4 +1,4 @@
-<compatibility-matrix version="2.0" type="device">
+<compatibility-matrix version="6.0" type="device">
     <hal format="hidl" optional="false">
         <name>android.frameworks.schedulerservice</name>
         <version>1.0</version>
@@ -54,6 +54,11 @@
             <name>IKeystore</name>
             <instance>default</instance>
         </interface>
+    </hal>
+    <hal format="hidl">
+        <name>android.hardware.memtrack</name>
+        <transport>hwbinder</transport>
+        <fqname>@1.0::IMemtrack/default</fqname>
     </hal>
     <hal format="hidl" optional="true">
         <name>com.quicinc.cne.server</name>
