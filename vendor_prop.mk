@@ -238,3 +238,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # BPF
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.bpf.kver_override=5.4.299
+
+
+# Incremental FS
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.incremental.enable=true
