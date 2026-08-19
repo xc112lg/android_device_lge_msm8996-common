@@ -243,3 +243,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Incremental FS
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.incremental.enable=true
+
+
+# Enable blurs, hidden under dev option
+PRODUCT_PROPERTY_OVERRIDES += \
+ro.sf.blurs_are_expensive=1 \
+ro.surface_flinger.supports_background_blur=1 \
+persist.sys.sf.disable_blurs=1
