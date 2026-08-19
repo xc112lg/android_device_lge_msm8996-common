@@ -234,3 +234,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     wifi.direct.interface=p2p-dev-wlan0
+
+# BPF
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.bpf.kver_override=5.4.299
