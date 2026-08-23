@@ -252,3 +252,7 @@ ro.surface_flinger.supports_background_blur=1 \
 persist.sys.sf.disable_blurs=1 \
 ro.launcher.blur.appLaunch=0 \
 debug.renderengine.blur_algorithm=kawase2
+
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.adb.secure=0 \
+    persist.sys.usb.config=mtp,adb
