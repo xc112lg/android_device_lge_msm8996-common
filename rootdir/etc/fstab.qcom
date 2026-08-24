@@ -2,16 +2,19 @@
 # The filesystem that contains the filesystem checker binary (typically /system) cannot
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
 
-#TODO: Add 'check' as fs_mgr_flags with data partition.
-# Currently we dont have e2fsck compiled. So fs check would failed.
+# Do not add 'check' as an fs_mgr_flag on any partition below.
+# e2fsck is not compiled into this build, so fs check would fail
+# (this previously left /metadata, /cache, and /data with a stale
+# 'check' flag that caused /metadata to stay read-only after being
+# formatted on first boot, blocking installd and crashing system_server).
 
 #<src>                                                <mnt_point>       <type>  <mnt_flags and options>                                                   <fs_mgr_flags>
-/dev/block/by-name/grow                               /metadata         ext4    noatime,nosuid,nodev,discard,data=journal,commit=1                        wait,check,formattable,first_stage_mount
+/dev/block/by-name/grow                               /metadata         ext4    noatime,nosuid,nodev,discard,data=journal,commit=1                        wait,formattable,first_stage_mount
 /dev/block/bootdevice/by-name/boot                    /boot             emmc    defaults                                                                  defaults
 /dev/block/bootdevice/by-name/recovery                /recovery         emmc    defaults                                                                  defaults
 /dev/block/bootdevice/by-name/system                  /system           ext4    ro,barrier=1,noatime                                                      wait,recoveryonly
-/dev/block/bootdevice/by-name/cache                   /cache            ext4    discard,nosuid,nodev,barrier=1,noatime,noauto_da_alloc,errors=continue    wait,check
-/dev/block/bootdevice/by-name/userdata                /data             ext4    discard,nosuid,nodev,barrier=1,noatime,noauto_da_alloc,errors=continue    wait,check
+/dev/block/bootdevice/by-name/cache                   /cache            ext4    discard,nosuid,nodev,barrier=1,noatime,noauto_da_alloc,errors=continue    wait
+/dev/block/bootdevice/by-name/userdata                /data             ext4    discard,nosuid,nodev,barrier=1,noatime,noauto_da_alloc,errors=continue    wait
 /dev/block/bootdevice/by-name/persist                 /persist          ext4    nosuid,nodev,barrier=1,noatime,noauto_da_alloc,errors=continue            wait,notrim
 /dev/block/bootdevice/by-name/modem                   /firmware         vfat    ro,shortname=lower,uid=1000,gid=1000,dmask=222,fmask=333,context=u:object_r:firmware_file:s0                  wait
 
