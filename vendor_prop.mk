@@ -254,5 +254,4 @@ ro.launcher.blur.appLaunch=0 \
 debug.renderengine.blur_algorithm=kawase2
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    ro.adb.secure=0 \
-    persist.sys.usb.config=mtp,adb
+    ro.adb.secure=0
