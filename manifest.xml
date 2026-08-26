@@ -17,14 +17,6 @@
             <instance>default</instance>
         </interface>
     </hal>
-    <hal format="aidl">
-        <name>android.hardware.audio</name>
-        <fqname>IDevicesFactory/default</fqname>
-    </hal>
-    <hal format="aidl">
-        <name>android.hardware.audio.effect</name>
-        <fqname>IEffectsFactory/default</fqname>
-    </hal>
     <hal format="hidl">
         <name>android.hardware.bluetooth</name>
         <transport>hwbinder</transport>
