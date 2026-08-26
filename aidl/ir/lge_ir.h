@@ -17,18 +17,13 @@
  */
 
 // LG specific defines
-#define IR_DEVICE "/dev/ttyHSL1"
+#define IR_DEVICE "/dev/ttyMSM1"
 #define LG_IR_BAUD_RATE 115200
 #define CIR_DRIVER_LIB "libcir_driver.so"
 namespace aidl::android::hardware::ir {
 
 inline const std::vector<ConsumerIrFreqRange> kCarrierFreqRanges = {
-    {30000, 30000},
-    {33000, 33000},
-    {36000, 36000},
-    {38000, 38000},
-    {40000, 40000},
-    {56000, 56000},
+    {.min = 25000, .max = 125000},
 };
 
 }  // namespace aidl::android::hardware::ir
