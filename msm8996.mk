@@ -25,22 +25,26 @@ PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := 560dpi
 
 # Audio
-PRODUCT_PACKAGES += \
-    android.hardware.audio@6.0-impl:32 \
-    android.hardware.audio.effect@6.0-impl:32 \
-    android.hardware.audio.service.lge_msm8996 \
-    android.hardware.bluetooth.audio-impl \
-    android.hardware.soundtrigger@2.1-impl:32 \
-    audio.bluetooth.default \
-    audio.primary.msm8996 \
-    audio.r_submix.default \
-    audio.usb.default \
-    libaudio-resampler \
-    libaudioroute \
-    libqcompostprocbundle \
-    libqcomvisualizer \
-    libqcomvoiceprocessing \
-    libvolumelistener
+# TEMPORARILY DISABLED to stop audio-hal crash-loop bootloop.
+# None of these get built/installed, so vendor.audio-hal is never
+# defined in init and can never crash-loop. No system audio until
+# re-enabled (with the lge_msm8996 prefer32 fix applied).
+#PRODUCT_PACKAGES += \
+#    android.hardware.audio@6.0-impl:32 \
+#    android.hardware.audio.effect@6.0-impl:32 \
+#    android.hardware.audio.service.lge_msm8996 \
+#    android.hardware.bluetooth.audio-impl \
+#    android.hardware.soundtrigger@2.1-impl:32 \
+#    audio.bluetooth.default \
+#    audio.primary.msm8996 \
+#    audio.r_submix.default \
+#    audio.usb.default \
+#    libaudio-resampler \
+#    libaudioroute \
+#    libqcompostprocbundle \
+#    libqcomvisualizer \
+#    libqcomvoiceprocessing \
+#    libvolumelistener
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_output_policy.conf:$(TARGET_COPY_OUT_VENDOR)/etc/audio_output_policy.conf \
