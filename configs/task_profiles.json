@@ -574,7 +574,7 @@
     },
     {
       "Name": "SCHED_SP_FOREGROUND_WINDOW",
-      "Profiles": [ "HighPerformanceWI", "HighIoPriority", "TimerSlackNormal" ]
+      "Profiles": [ "HighIoPriority", "TimerSlackNormal" ]
     },
     {
       "Name": "SCHED_SP_TOP_APP",
@@ -606,7 +606,7 @@
     },
     {
       "Name": "CPUSET_SP_FOREGROUND_WINDOW",
-      "Profiles": [ "HighPerformanceWI", "ProcessCapacityHighWI", "HighIoPriority", "TimerSlackNormal" ]
+      "Profiles": [ "ProcessCapacityHighWI", "HighIoPriority", "TimerSlackNormal" ]
     },
     {
       "Name": "CPUSET_SP_TOP_APP",
@@ -622,7 +622,7 @@
     },
     {
       "Name": "Dex2OatBootComplete",
-      "Profiles": [ "Dex2oatPerformance", "LowIoPriority", "TimerSlackHigh" ]
+      "Profiles": [ "LowIoPriority", "TimerSlackHigh" ]
     },
     {
       "Name": "Dex2OatBackground",
