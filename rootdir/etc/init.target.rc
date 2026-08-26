@@ -47,7 +47,10 @@ on fs
     wait /dev/block/platform/soc/${ro.boot.bootdevice}
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
     mount_all /vendor/etc/fstab.qcom
-    mount tmpfs tmpfs /metadata size=10m
+    # /metadata is now backed by a real partition in fstab.qcom (by-name/factory).
+    # Do not also mount a tmpfs here - it would mount over the real partition
+    # and mask it with an empty, non-persistent filesystem every boot.
+    # mount tmpfs tmpfs /metadata size=10m
     swapon_all /vendor/etc/fstab.qcom
     # These directories have different labeling in stock rom.
     # Jumping between stock and LineageOS needs restorecon -F
