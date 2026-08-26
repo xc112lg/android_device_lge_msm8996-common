@@ -120,19 +120,6 @@
       ]
     },
     {
-      "Name": "NormalPerformance",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "schedtune",
-            "Path": "system"
-          }
-        }
-      ]
-    },
-    {
       "Name": "ServicePerformance",
       "Actions": [
         {
@@ -159,19 +146,6 @@
       ]
     },
     {
-      "Name": "HighPerformanceWI",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "schedtune",
-            "Path": "foreground_window"
-          }
-        }
-      ]
-    },
-    {
       "Name": "MaxPerformance",
       "Actions": [
         {
@@ -193,45 +167,6 @@
           {
             "Controller": "schedtune",
             "Path": "rt"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "CameraServicePerformance",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "schedtune",
-            "Path": "camera-daemon"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "NNApiHALPerformance",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "schedtune",
-            "Path": "nnapi-hal"
-          }
-        }
-      ]
-    },
-    {
-      "Name": "Dex2oatPerformance",
-      "Actions": [
-        {
-          "Name": "JoinCgroup",
-          "Params":
-          {
-            "Controller": "schedtune",
-            "Path": "dex2oat"
           }
         }
       ]
