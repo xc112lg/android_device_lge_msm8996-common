@@ -454,7 +454,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml
 
 # UFFD GC
-PRODUCT_ENABLE_UFFD_GC := true
+PRODUCT_ENABLE_UFFD_GC := false
 
 # Power
 $(call soong_config_set,qtipower,tap_to_wake_node,/proc/touchpanel/double_tap_enable)
@@ -462,4 +462,8 @@ $(call soong_config_set_bool,qtipower,interaction_boost,true)
 
 
 # Kernel
-PRODUCT_ENABLE_UFFD_GC := true
+PRODUCT_ENABLE_UFFD_GC := false
+
+# Configstore
+PRODUCT_PACKAGES += \
+    disable_configstore
