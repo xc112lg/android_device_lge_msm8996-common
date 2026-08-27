@@ -221,8 +221,8 @@ vendor/lib64/libssd.so
 vendor/lib64/vendor.qti.hardware.tui_comm@1.0_vendor.so
 
 # Gatekeeper
-vendor/lib/hw/gatekeeper.msm8996.so
-vendor/lib64/hw/gatekeeper.msm8996.so
+-vendor/lib/hw/gatekeeper.msm8996.so
+-vendor/lib64/hw/gatekeeper.msm8996.so
 
 # GPS - from daisy - QKQ1.191002.002
 vendor/bin/loc_launcher;DISABLE_CHECKELF;DISABLE_DEPS|06793983f836a9b42b5ff3848f8fe177134c1379
