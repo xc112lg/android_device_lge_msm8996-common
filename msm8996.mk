@@ -222,8 +222,6 @@ PRODUCT_PACKAGES += \
     libhidltransport \
     libhwbinder
 
-# ION
-$(call soong_config_set_bool,libion,legacy_impl,true)
 
 # IPACM
 PRODUCT_PACKAGES += \
