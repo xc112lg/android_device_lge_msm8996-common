@@ -48,6 +48,7 @@ on fs
     symlink /dev/block/platform/soc/${ro.boot.bootdevice} /dev/block/bootdevice
     mount_all /vendor/etc/fstab.qcom
     swapon_all /vendor/etc/fstab.qcom
+    mount tmpfs tmpfs /metadata size=10m
     # These directories have different labeling in stock rom.
     # Jumping between stock and LineageOS needs restorecon -F
     # to apply our labeling.
@@ -59,6 +60,8 @@ on fs
       restorecon -RF  /sns
     exec u:r:vendor_init:s0 root root -- /vendor/bin/toybox_vendor \
       restorecon -RF  /mpt
+
+
 
     mkdir /persist/rfs 0775 root system
     mkdir /persist/hlos_rfs 0775 root system
