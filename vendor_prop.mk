@@ -254,4 +254,6 @@ ro.launcher.blur.appLaunch=0 \
 debug.renderengine.blur_algorithm=kawase2
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    ro.adb.secure=0
+    ro.adb.secure=0 \
+    ro.hardware.biometrics.fingerprint=false \
+    ro.hardware.biometrics.face=false
