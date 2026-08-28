@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<permissions>
+    <privapp-permissions package="com.google.android.permissioncontroller">
+        <permission name="android.permission.RANGING"/>
+    </privapp-permissions>
+    <privapp-permissions package="com.android.permissioncontroller">
+        <permission name="android.permission.RANGING"/>
+    </privapp-permissions>
+</permissions>
