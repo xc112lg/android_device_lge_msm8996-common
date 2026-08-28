@@ -372,6 +372,17 @@ on post-fs-data
     # SettingsProvider's data dir creation on first boot; force it up early.
     start installd
 
+    # gatekeeperd.rc is parsed but its own trigger never fires on this tree,
+    # so GateKeeper.getService() throws IllegalStateException inside
+    # BiometricService's constructor, crashing system_server/zygote in a
+    # bootloop; force it up here alongside installd.
+    start gatekeeperd
+
+    # storaged hits the same dead-trigger issue (storaged.rc parsed, never
+    # started -> "storaged not found; trying again" spam from
+    # StorageManagerService); force it up here too.
+    start storaged
+
     mkdir /data/vendor/misc 01771 system system
 
     # Create directory used by display clients
