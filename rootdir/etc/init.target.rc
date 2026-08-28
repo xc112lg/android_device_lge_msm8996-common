@@ -50,7 +50,7 @@ on fs
     # /metadata is now backed by a real partition in fstab.qcom (by-name/factory).
     # Do not also mount a tmpfs here - it would mount over the real partition
     # and mask it with an empty, non-persistent filesystem every boot.
-    #mount tmpfs tmpfs /metadata size=10m
+    mount tmpfs tmpfs /metadata size=10m
     swapon_all /vendor/etc/fstab.qcom
     # These directories have different labeling in stock rom.
     # Jumping between stock and LineageOS needs restorecon -F
