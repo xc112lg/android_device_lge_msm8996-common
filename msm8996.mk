@@ -470,3 +470,8 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/permissions/privapp-permissions-platform.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-platform.xml
+
+
+# Hardcode the permission flag engine to recognize the staging asset
+PRODUCT_RELEASE_CONFIG_MAPS += \
+    android.permission.flags.ranging_permission_enabled=true
