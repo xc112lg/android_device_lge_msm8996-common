@@ -89,20 +89,20 @@ PRODUCT_COPY_FILES += \
 $(call soong_config_set,brcm_libbt,bdroid_buildcfg_include_dir,$(LOCAL_PATH)/bluetooth/include)
 $(call soong_config_set,brcm_libbt,custom_bt_config,//$(LOCAL_PATH):vnd_lge_msm8996.txt)
 
-# Camera
-PRODUCT_PACKAGES += \
-    android.hardware.camera.device@3.4:64 \
-    android.hardware.camera.provider@2.4-impl:32 \
-    android.hardware.camera.provider@2.4-service \
-    android.hardware.camera.provider@2.5:64 \
-    camera.msm8996 \
-    libstdc++_vendor \
-    libexif_32 \
-    libshim_camera_system \
-    libui_shim \
-    libtinyxml \
-    libyuv_32 \
-    vendor.qti.hardware.camera.device@1.0
+# # Camera
+# PRODUCT_PACKAGES += \
+#     android.hardware.camera.device@3.4:64 \
+#     android.hardware.camera.provider@2.4-impl:32 \
+#     android.hardware.camera.provider@2.4-service \
+#     android.hardware.camera.provider@2.5:64 \
+#     camera.msm8996 \
+#     libstdc++_vendor \
+#     libexif_32 \
+#     libshim_camera_system \
+#     libui_shim \
+#     libtinyxml \
+#     libyuv_32 \
+#     vendor.qti.hardware.camera.device@1.0
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
