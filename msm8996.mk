@@ -92,11 +92,10 @@ $(call soong_config_set,brcm_libbt,custom_bt_config,//$(LOCAL_PATH):vnd_lge_msm8
 # Camera
 PRODUCT_PACKAGES += \
     android.hardware.camera.device@3.4:64 \
-    android.hardware.camera.provider@2.4-impl:32 \
+    android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service \
     android.hardware.camera.provider@2.5:64 \
-    camera.msm8996 \
-    libstdc++_vendor \
+    camera.device@3.2-impl \
     libexif_32 \
     libshim_camera_system \
     libui_shim \
