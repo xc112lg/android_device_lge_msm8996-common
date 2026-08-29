@@ -468,7 +468,3 @@ PRODUCT_ENABLE_UFFD_GC := false
 # Configstore
 PRODUCT_PACKAGES += \
     disable_configstore
-
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/permissions/privapp-permissions-platform.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-platform.xml
