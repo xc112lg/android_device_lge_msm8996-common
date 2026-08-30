@@ -13,22 +13,6 @@
 // limitations under the License.
 
 cc_library_shared {
-    name: "libshim_camera_system",
-
-    srcs: ["camera_shim.cpp"],
-
-    shared_libs: [
-        "libgui",
-        "libui",
-    ],
-
-    include_dirs: ["frameworks/native/include"],
-
-    compile_multilib: "32",
-    system_ext_specific: true,
-}
-
-cc_library_shared {
     name: "libshim_bwfocus",
 
     srcs: ["bwfocus_shim.c"],

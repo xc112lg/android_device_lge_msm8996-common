@@ -90,7 +90,10 @@ TARGET_BOOTLOADER_BOARD_NAME := MSM8996
 TARGET_NO_BOOTLOADER := true
 
 # Camera
-USE_CAMERA_STUB := true
+# Build the open-source QCamera2 HAL (camera.msm8996) from source instead of
+# stubbing the camera HAL / using the closed prebuilt camera.device@3.2-impl.
+BOARD_QTI_CAMERA_32BIT_ONLY := true
+TARGET_SUPPORT_HAL1 := false
 
 # Display
 MAX_VIRTUAL_DISPLAY_DIMENSION := 4096

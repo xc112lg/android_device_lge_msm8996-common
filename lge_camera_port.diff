@@ -1,0 +1,82 @@
+diff -ru '--exclude=camera' lge_patch/android_device_lge_msm8996-common-patch-19/BoardConfigCommon.mk lge_port/BoardConfigCommon.mk
+--- lge_patch/android_device_lge_msm8996-common-patch-19/BoardConfigCommon.mk	2026-08-29 23:20:54.000000000 +0000
++++ lge_port/BoardConfigCommon.mk	2026-08-30 02:29:57.618946163 +0000
+@@ -90,7 +90,10 @@
+ TARGET_NO_BOOTLOADER := true
+ 
+ # Camera
+-USE_CAMERA_STUB := true
++# Build the open-source QCamera2 HAL (camera.msm8996) from source instead of
++# stubbing the camera HAL / using the closed prebuilt camera.device@3.2-impl.
++BOARD_QTI_CAMERA_32BIT_ONLY := true
++TARGET_SUPPORT_HAL1 := false
+ 
+ # Display
+ MAX_VIRTUAL_DISPLAY_DIMENSION := 4096
+Only in lge_port/configs: public.libraries.txt
+diff -ru '--exclude=camera' lge_patch/android_device_lge_msm8996-common-patch-19/libshims/Android.bp lge_port/libshims/Android.bp
+--- lge_patch/android_device_lge_msm8996-common-patch-19/libshims/Android.bp	2026-08-29 23:20:54.000000000 +0000
++++ lge_port/libshims/Android.bp	2026-08-30 02:30:02.085923396 +0000
+@@ -13,22 +13,6 @@
+ // limitations under the License.
+ 
+ cc_library_shared {
+-    name: "libshim_camera_system",
+-
+-    srcs: ["camera_shim.cpp"],
+-
+-    shared_libs: [
+-        "libgui",
+-        "libui",
+-    ],
+-
+-    include_dirs: ["frameworks/native/include"],
+-
+-    compile_multilib: "32",
+-    system_ext_specific: true,
+-}
+-
+-cc_library_shared {
+     name: "libshim_bwfocus",
+ 
+     srcs: ["bwfocus_shim.c"],
+Only in lge_patch/android_device_lge_msm8996-common-patch-19/libshims: camera_shim.cpp
+diff -ru '--exclude=camera' lge_patch/android_device_lge_msm8996-common-patch-19/msm8996.mk lge_port/msm8996.mk
+--- lge_patch/android_device_lge_msm8996-common-patch-19/msm8996.mk	2026-08-29 23:20:54.000000000 +0000
++++ lge_port/msm8996.mk	2026-08-30 02:30:36.598194673 +0000
+@@ -90,19 +90,29 @@
+ $(call soong_config_set,brcm_libbt,custom_bt_config,//$(LOCAL_PATH):vnd_lge_msm8996.txt)
+ 
+ # Camera
++# NOTE: camera.device@3.2-impl (closed-source prebuilt HAL) and its
++# libshim_camera_system ABI shim have been replaced by the open-source
++# QCamera2 HAL (camera.msm8996), ported from device/xiaomi/msm8996-common,
++# to fix camera failing to start (mm-qcamera-daemon linker crash).
+ PRODUCT_PACKAGES += \
+     android.hardware.camera.device@3.4:64 \
+-    android.hardware.camera.provider@2.4-impl \
++    android.hardware.camera.provider@2.4-impl:32 \
+     android.hardware.camera.provider@2.4-service \
+     android.hardware.camera.provider@2.5:64 \
+-    camera.device@3.2-impl \
+-    libexif_32 \
+-    libshim_camera_system \
+-    libui_shim \
++    camera.msm8996 \
++    libgui_vendor \
++    libion.vendor \
++    libstdc++_vendor \
+     libtinyxml \
+-    libyuv_32 \
+     vendor.qti.hardware.camera.device@1.0
+ 
++# Additional native libraries
++# Exposes libandroid.so to the vendor linker namespace; without this,
++# /vendor/bin/mm-qcamera-daemon fails to start ("CANNOT LINK EXECUTABLE ...
++# library libandroid.so not found: needed by libmmcamera2_stats_modules.so").
++PRODUCT_COPY_FILES += \
++    $(LOCAL_PATH)/configs/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
++
+ PRODUCT_COPY_FILES += \
+     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+     frameworks/native/data/etc/android.hardware.camera.front.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.front.xml \

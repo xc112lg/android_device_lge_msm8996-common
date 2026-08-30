@@ -90,18 +90,28 @@ $(call soong_config_set,brcm_libbt,bdroid_buildcfg_include_dir,$(LOCAL_PATH)/blu
 $(call soong_config_set,brcm_libbt,custom_bt_config,//$(LOCAL_PATH):vnd_lge_msm8996.txt)
 
 # Camera
+# NOTE: camera.device@3.2-impl (closed-source prebuilt HAL) and its
+# libshim_camera_system ABI shim have been replaced by the open-source
+# QCamera2 HAL (camera.msm8996), ported from device/xiaomi/msm8996-common,
+# to fix camera failing to start (mm-qcamera-daemon linker crash).
 PRODUCT_PACKAGES += \
     android.hardware.camera.device@3.4:64 \
-    android.hardware.camera.provider@2.4-impl \
+    android.hardware.camera.provider@2.4-impl:32 \
     android.hardware.camera.provider@2.4-service \
     android.hardware.camera.provider@2.5:64 \
-    camera.device@3.2-impl \
-    libexif_32 \
-    libshim_camera_system \
-    libui_shim \
+    camera.msm8996 \
+    libgui_vendor \
+    libion.vendor \
+    libstdc++_vendor \
     libtinyxml \
-    libyuv_32 \
     vendor.qti.hardware.camera.device@1.0
+
+# Additional native libraries
+# Exposes libandroid.so to the vendor linker namespace; without this,
+# /vendor/bin/mm-qcamera-daemon fails to start ("CANNOT LINK EXECUTABLE ...
+# library libandroid.so not found: needed by libmmcamera2_stats_modules.so").
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
