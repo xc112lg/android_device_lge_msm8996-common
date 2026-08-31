@@ -479,3 +479,9 @@ PRODUCT_ENABLE_UFFD_GC := false
 # Configstore
 PRODUCT_PACKAGES += \
     disable_configstore
+
+
+# Linker namespace configuration - CRITICAL!
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/ld.config.txt:$(TARGET_COPY_OUT_VENDOR)/etc/ld.config.txt \
+    $(LOCAL_PATH)/configs/ld.config.txt:$(TARGET_COPY_OUT_SYSTEM)/etc/ld.config.txt
