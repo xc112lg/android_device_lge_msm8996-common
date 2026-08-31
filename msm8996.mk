@@ -100,12 +100,12 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-service \
     android.hardware.camera.provider@2.5:64 \
     camera.msm8996 \
-    camera.device@3.2-impl \
     libgui_vendor \
     libion.vendor \
     libstdc++_vendor \
-    libtinyxml \
-    vendor.qti.hardware.camera.device@1.0
+    vendor.qti.hardware.camera.device@1.0 \
+    camera.device@3.2-impl
+
 
 # Additional native libraries
 # Exposes libandroid.so to the vendor linker namespace; without this,
