@@ -103,8 +103,8 @@ PRODUCT_PACKAGES += \
     libgui_vendor \
     libion.vendor \
     libstdc++_vendor \
-    vendor.qti.hardware.camera.device@1.0 \
-    camera.device@3.2-impl
+    libtinyxml \
+    vendor.qti.hardware.camera.device@1.0
 
 
 # Additional native libraries
