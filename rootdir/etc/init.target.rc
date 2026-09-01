@@ -127,6 +127,10 @@ service vendor.qcamerasvr /vendor/bin/mm-qcamera-daemon
     class main
     user camera
     group camera system inet input graphics
+    # Critical: Set library path for Android 28 namespace isolation
+    setenv LD_LIBRARY_PATH /system/lib:/system/lib64:/vendor/lib:/vendor/lib64:/system/vendor/lib:/system/vendor/lib64
+    # Enable camera hardware access
+    capabilities SYS_NICE
 
 service qfp-daemon /system/bin/qfp-daemon
     class late_start
