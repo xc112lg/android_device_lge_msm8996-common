@@ -1,1 +1,5 @@
 libandroid.so
+libandroidicu.so
+libxml2.so
+libicui18n.so
+libicuuc.so

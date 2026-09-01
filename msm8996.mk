@@ -483,5 +483,15 @@ PRODUCT_PACKAGES += \
 
 # Linker namespace configuration - CRITICAL!
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/ld.config.txt:$(TARGET_COPY_OUT_VENDOR)/etc/ld.config.txt \
-    $(LOCAL_PATH)/configs/ld.config.txt:$(TARGET_COPY_OUT_SYSTEM)/etc/ld.config.txt
+    $(LOCAL_PATH)/configs/ld.config.txt:$(TARGET_COPY_OUT_VENDOR)/etc/ld.config.txt
+
+
+# Copy APEX-based libraries to vendor lib for camera access
+# APEX libraries aren't accessible via namespace whitelist, so we must copy them
+PRODUCT_COPY_FILES += \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libandroidicu.so:$(TARGET_COPY_OUT_VENDOR)/lib/libandroidicu.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libandroidicu.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libandroidicu.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libicui18n.so:$(TARGET_COPY_OUT_VENDOR)/lib/libicui18n.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libicui18n.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libicui18n.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libicuuc.so:$(TARGET_COPY_OUT_VENDOR)/lib/libicuuc.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libicuuc.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libicuuc.so
