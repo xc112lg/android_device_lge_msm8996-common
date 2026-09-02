@@ -90,30 +90,20 @@ $(call soong_config_set,brcm_libbt,bdroid_buildcfg_include_dir,$(LOCAL_PATH)/blu
 $(call soong_config_set,brcm_libbt,custom_bt_config,//$(LOCAL_PATH):vnd_lge_msm8996.txt)
 
 # Camera
-# NOTE: camera.device@3.2-impl (closed-source prebuilt HAL) and its
-# libshim_camera_system ABI shim have been replaced by the open-source
-# QCamera2 HAL (camera.msm8996), ported from device/xiaomi/msm8996-common,
-# to fix camera failing to start (mm-qcamera-daemon linker crash).
 PRODUCT_PACKAGES += \
     android.hardware.camera.device@3.4:64 \
-    android.hardware.camera.provider@2.4-impl:32 \
+    android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service \
     android.hardware.camera.provider@2.5:64 \
-    camera.msm8996 \
-    libgui_vendor \
-    libion.vendor \
-    libstdc++_vendor \
+    camera.device@3.2-impl \
+    libexif_32 \
+    libfence_shim \
+    libgui_shim_vendor \
+    libshim_camera_system \
+    libui_shim \
     libtinyxml \
+    libyuv_32 \
     vendor.qti.hardware.camera.device@1.0
-
-
-# Additional native libraries
-# Exposes libandroid.so to the vendor linker namespace; without this,
-# /vendor/bin/mm-qcamera-daemon fails to start ("CANNOT LINK EXECUTABLE ...
-# library libandroid.so not found: needed by libmmcamera2_stats_modules.so").
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/public.libraries.txt:$(TARGET_COPY_OUT_VENDOR)/etc/public.libraries.txt \
-    $(LOCAL_PATH)/configs/public.libraries.txt:$(TARGET_COPY_OUT_SYSTEM)/etc/public.libraries.txt
 
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.flash-autofocus.xml \
@@ -121,10 +111,14 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.full.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.full.xml \
     frameworks/native/data/etc/android.hardware.camera.raw.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.camera.raw.xml
 
+# Configstore
+PRODUCT_PACKAGES += \
+    disable_configstore
+
 # Control groups and task profiles
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/cgroups.json:$(TARGET_COPY_OUT_VENDOR)/etc/cgroups.json \
-    $(LOCAL_PATH)/configs/task_profiles.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json
+    system/core/libprocessgroup/profiles/cgroups_28.json:$(TARGET_COPY_OUT_VENDOR)/etc/cgroups.json \
+    system/core/libprocessgroup/profiles/task_profiles_28.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json
 
 # Dalvik
 $(call inherit-product, frameworks/native/build/phone-xhdpi-4096-dalvik-heap.mk)
@@ -180,8 +174,9 @@ PRODUCT_PACKAGES += \
 
 # Gatekeeper
 PRODUCT_PACKAGES += \
-    android.hardware.gatekeeper@1.0-impl:64 \
-    android.hardware.gatekeeper@1.0-service
+    android.hardware.gatekeeper@1.0-impl \
+    android.hardware.gatekeeper@1.0-service \
+    libion.vendor
 
 # Gesture Handler
 PRODUCT_PACKAGES += \
@@ -245,14 +240,12 @@ PRODUCT_COPY_FILES += \
 
 # Keymaster
 PRODUCT_PACKAGES += \
-    android.hardware.keymaster@3.0-impl:64 \
+    android.hardware.keymaster@3.0-impl \
     android.hardware.keymaster@3.0-service
 
 # LiveDisplay
 PRODUCT_PACKAGES += \
-    vendor.lineage.livedisplay-service.sdm
-
-$(call soong_config_set_bool,livedisplay_sdm,enable_dm,false)
+    vendor.lineage.livedisplay@2.0-service-sdm
 
 # Lineage Health
 PRODUCT_PACKAGES += \
@@ -464,34 +457,3 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.direct.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.wifi.xml
-
-# UFFD GC
-PRODUCT_ENABLE_UFFD_GC := false
-
-# Power
-$(call soong_config_set,qtipower,tap_to_wake_node,/proc/touchpanel/double_tap_enable)
-$(call soong_config_set_bool,qtipower,interaction_boost,true)
-
-
-# Kernel
-PRODUCT_ENABLE_UFFD_GC := false
-
-# Configstore
-PRODUCT_PACKAGES += \
-    disable_configstore
-
-
-# Linker namespace configuration - CRITICAL!
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/ld.config.txt:$(TARGET_COPY_OUT_VENDOR)/etc/ld.config.txt
-
-
-# Copy APEX-based libraries to vendor lib for camera access
-# APEX libraries aren't accessible via namespace whitelist, so we must copy them
-PRODUCT_COPY_FILES += \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libandroidicu.so:$(TARGET_COPY_OUT_VENDOR)/lib/libandroidicu.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libandroidicu.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libandroidicu.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libicui18n.so:$(TARGET_COPY_OUT_VENDOR)/lib/libicui18n.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libicui18n.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libicui18n.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libicuuc.so:$(TARGET_COPY_OUT_VENDOR)/lib/libicuuc.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libicuuc.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libicuuc.so
