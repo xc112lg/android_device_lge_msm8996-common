@@ -221,8 +221,8 @@ vendor/lib64/libssd.so
 vendor/lib64/vendor.qti.hardware.tui_comm@1.0_vendor.so
 
 # Gatekeeper
--vendor/lib/hw/gatekeeper.msm8996.so;DISABLE_DEPS
--vendor/lib64/hw/gatekeeper.msm8996.so;DISABLE_DEPS
+vendor/lib/hw/gatekeeper.msm8996.so
+vendor/lib64/hw/gatekeeper.msm8996.so
 
 # GPS - from daisy - QKQ1.191002.002
 vendor/bin/loc_launcher;DISABLE_CHECKELF;DISABLE_DEPS|06793983f836a9b42b5ff3848f8fe177134c1379
@@ -341,12 +341,10 @@ system/lib/hw/lgkm.default.so
 system/lib/hw/lgkm.msm8996.so
 system/lib/libkeystore_binder.so
 system/lib/liblgkm.so
-system/lib/libsecureks.so
 system/lib64/hw/lgkm.default.so
 system/lib64/hw/lgkm.msm8996.so
 system/lib64/libkeystore_binder.so
 system/lib64/liblgkm.so
-system/lib64/libsecureks.so
 
 # Keystore
 vendor/lib/hw/keystore.msm8996.so
@@ -540,7 +538,6 @@ vendor/firmware/image/modem_pr/mcfg/configs/mcfg_sw/generic/na/verizon/cdmaless/
 vendor/firmware/image/modem_pr/mcfg/configs/mcfg_sw/generic/na/verizon/hvolte/mcfg_sw.mbn|9253d2970e4dc6456b538a0be729b4487da2c6f6
 
 # Sensors
-system/lib64/hw/sensors.vr.so:vendor/lib64/hw/sensors.vr.so
 vendor/bin/sensors.qcom:vendor/bin/sensors.qti
 vendor/lib/libsensor1.so
 vendor/lib/libsensor_lge_cal.so
