@@ -88,12 +88,22 @@ blob_fixups: blob_fixups_user_type = {
         .add_needed('libutils-v33.so'),
     'vendor/lib/hw/camera.msm8996.so': blob_fixup()
         .binary_regex_replace(b'service.bootanim.exit', b'service.bootanim.zzzz')
-        .add_needed('libshim_camera.so'),
+        .add_needed('libshim_camera.so')
+        .add_needed('libfence_shim.so')
+        .replace_needed('libandroid.so', 'libsensorndkbridge.so')
+        .replace_needed('libcamera_client.so', 'libcamera_client_vendor.so'),
+    (
+        'vendor/lib/libcamera_client_vendor.so',
+        'vendor/lib64/libcamera_client_vendor.so',
+    ): blob_fixup()
+        .add_needed('libgui_shim_vendor.so'),
+    'vendor/lib/libarcsoft_beauty_shot.so': blob_fixup()
+        .replace_needed('libandroid.so', 'libsensorndkbridge.so')
+        .replace_needed('libstdc++.so', 'libstdc++_vendor.so'),
     (
         'vendor/lib/libAutoContrast.so',
         'vendor/lib/libCmcPdaf.so',
         'vendor/lib/libSJFingerDetect.so',
-        'vendor/lib/libarcsoft_beauty_shot.so',
         'vendor/lib/libarcsoft_object_tracking.so',
         'vendor/lib/libchromaflash.so',
         'vendor/lib/libcir_driver.so',
