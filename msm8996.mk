@@ -94,16 +94,19 @@ $(call soong_config_set,brcm_libbt,custom_bt_config,//$(LOCAL_PATH):vnd_lge_msm8
 # libshim_camera_system ABI shim have been replaced by the open-source
 # QCamera2 HAL (camera.msm8996), ported from device/xiaomi/msm8996-common,
 # to fix camera failing to start (mm-qcamera-daemon linker crash).
+# Camera
 PRODUCT_PACKAGES += \
     android.hardware.camera.device@3.4:64 \
-    android.hardware.camera.provider@2.4-impl:32 \
+    android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service \
     android.hardware.camera.provider@2.5:64 \
-    camera.msm8996 \
-    libgui_vendor \
-    libion.vendor \
-    libstdc++_vendor \
+    camera.device@3.2-impl \
+    libexif_32 \
+    libshim_camera_system \
+    libui_shim \
     libtinyxml \
+    libyuv_32 \
+    camera.msm8996 \
     vendor.qti.hardware.camera.device@1.0
 
 
@@ -485,13 +488,3 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/ld.config.txt:$(TARGET_COPY_OUT_VENDOR)/etc/ld.config.txt
 
-
-# Copy APEX-based libraries to vendor lib for camera access
-# APEX libraries aren't accessible via namespace whitelist, so we must copy them
-PRODUCT_COPY_FILES += \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libandroidicu.so:$(TARGET_COPY_OUT_VENDOR)/lib/libandroidicu.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libandroidicu.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libandroidicu.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libicui18n.so:$(TARGET_COPY_OUT_VENDOR)/lib/libicui18n.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libicui18n.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libicui18n.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libicuuc.so:$(TARGET_COPY_OUT_VENDOR)/lib/libicuuc.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libicuuc.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libicuuc.so

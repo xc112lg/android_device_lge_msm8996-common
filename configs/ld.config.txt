@@ -7,15 +7,13 @@
 
 # Default namespace - system libraries
 namespace.default {
-  search.paths = /system/lib:/system/lib64:/vendor/lib:/vendor/lib64
-  permitted.paths = /system/lib:/system/lib64:/vendor/lib:/vendor/lib64:/system/vendor/lib:/system/vendor/lib64
+  search.paths = /system/lib:/system/lib64:/vendor/lib:/vendor/lib64:/system/vendor/lib:/system/vendor/lib64:/apex/com.android.i18n/lib:/apex/com.android.i18n/lib64:/apex/com.android.i18n@1/lib:/apex/com.android.i18n@1/lib64
+  permitted.paths = /system/lib:/system/lib64:/vendor/lib:/vendor/lib64:/system/vendor/lib:/system/vendor/lib64:/apex/com.android.i18n/lib:/apex/com.android.i18n/lib64:/apex/com.android.i18n@1/lib:/apex/com.android.i18n@1/lib64
 }
 
-# Vendor namespace - for /vendor/bin executables like camera daemon
 namespace.vendor {
-  search.paths = /vendor/lib:/vendor/lib64:/system/vendor/lib:/system/vendor/lib64:/system/lib:/system/lib64
-  permitted.paths = /vendor/lib:/vendor/lib64:/system/vendor/lib:/system/vendor/lib64:/system/lib:/system/lib64
+  search.paths = /vendor/lib:/vendor/lib64:/system/vendor/lib:/system/vendor/lib64:/system/lib:/system/lib64:/apex/com.android.i18n/lib:/apex/com.android.i18n/lib64:/apex/com.android.i18n@1/lib:/apex/com.android.i18n@1/lib64
+  permitted.paths = /vendor/lib:/vendor/lib64:/system/vendor/lib:/system/vendor/lib64:/system/lib:/system/lib64:/apex/com.android.i18n/lib:/apex/com.android.i18n/lib64:/apex/com.android.i18n@1/lib:/apex/com.android.i18n@1/lib64
   links = default
-  # Allow vendor to link these critical system libraries
-  link.default.shared_libs = libandroid.so:libcutils.so:libdl.so:liblog.so:libc.so:libm.so:libstdc++.so:libgui.so:libui.so
+  link.default.shared_libs = libandroid.so:libandroidicu.so:libxml2.so:libicui18n.so:libicuuc.so:libc.so:libm.so:libdl.so:liblog.so
 }
