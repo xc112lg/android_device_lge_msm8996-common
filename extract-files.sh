@@ -108,6 +108,61 @@ function blob_fixup() {
     esac
 }
 
+# ═══════════════════════════════════════════════════════════════════════════
+# FIX: Function to correct Android.bp syntax errors after generation
+# ═══════════════════════════════════════════════════════════════════════════
+
+function fix_android_bp() {
+    local BP_FILE="${1}/Android.bp"
+
+    if [ ! -f "$BP_FILE" ]; then
+        return 0
+    fi
+
+    # Check if the file has empty architecture names in target blocks
+    if grep -q '^\t\t: {' "$BP_FILE"; then
+        echo "Fixing Android.bp: Correcting empty architecture names..."
+
+        # Backup the original file
+        cp "$BP_FILE" "$BP_FILE.backup"
+
+        # Create a temporary file for processing
+        local temp_file=$(mktemp)
+
+        while IFS= read -r line; do
+            # Check if this line is an empty target key
+            if [[ "$line" =~ ^[[:space:]]*:[[:space:]]*\{ ]]; then
+                # Read next line to determine architecture
+                if IFS= read -r next_line; then
+                    # Check if the next line contains lib64 path
+                    if [[ "$next_line" =~ lib64 ]]; then
+                        echo -e "\t\tandroid_arm64: {" >> "$temp_file"
+                    else
+                        echo -e "\t\tandroid_arm: {" >> "$temp_file"
+                    fi
+                    echo "$next_line" >> "$temp_file"
+                else
+                    # Fallback if we can't read next line
+                    echo -e "\t\tandroid_arm: {" >> "$temp_file"
+                fi
+            else
+                echo "$line" >> "$temp_file"
+            fi
+        done < "$BP_FILE"
+
+        mv "$temp_file" "$BP_FILE"
+
+        # Verify the fix was applied
+        if ! grep -q '^\t\t: {' "$BP_FILE"; then
+            echo "✓ Android.bp fixed successfully"
+            return 0
+        else
+            echo "✗ Warning: Some issues may remain. Please review $BP_FILE"
+            return 1
+        fi
+    fi
+}
+
 # Default to sanitizing the vendor folder before extraction
 CLEAN_VENDOR=true
 
@@ -174,5 +229,25 @@ extract "$MY_DIR/../$DEVICE/proprietary-files.txt" "$SRC" "$SECTION"
 fi
 
 if [ -z "${ONLY_EXTRACT}" ]; then
-"$MY_DIR"/setup-makefiles.sh
+    "$MY_DIR"/setup-makefiles.sh
+
+    # ═══════════════════════════════════════════════════════════════════════════
+    # FIX: Auto-correct Android.bp after generation
+    # ═══════════════════════════════════════════════════════════════════════════
+
+    echo ""
+    echo "==================================================================="
+    echo "Verifying and fixing generated Android.bp files..."
+    echo "==================================================================="
+
+    # Fix platform common Android.bp
+    fix_android_bp "vendor/$VENDOR/$PLATFORM_COMMON"
+
+    # Fix device common Android.bp  
+    fix_android_bp "vendor/$VENDOR/$DEVICE_COMMON"
+
+    # Fix device-specific Android.bp
+    fix_android_bp "vendor/$VENDOR/$DEVICE"
+
+    echo ""
 fi
