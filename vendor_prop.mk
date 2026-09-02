@@ -238,3 +238,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     wifi.direct.interface=p2p-dev-wlan0
+
+# Enable blurs, hidden under dev option
+PRODUCT_PROPERTY_OVERRIDES += \
+ro.sf.blurs_are_expensive=1 \
+ro.surface_flinger.supports_background_blur=1 \
+persist.sys.sf.disable_blurs=1 \
+ro.launcher.blur.appLaunch=0 \
+debug.renderengine.blur_algorithm=kawase2
