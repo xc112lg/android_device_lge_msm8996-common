@@ -462,3 +462,6 @@ PRODUCT_COPY_FILES += \
 
 
 $(call soong_config_set_bool,libui,legacy_gralloc,true)
+
+# ION
+$(call soong_config_set_bool,libion,legacy_impl,true)

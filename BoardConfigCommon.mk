@@ -157,6 +157,7 @@ ENABLE_VENDOR_RIL_SERVICE := true
 BOARD_ROOT_EXTRA_FOLDERS := firmware persist persist-lg sns mpt
 
 # SELinux policies
+include device/lineage/sepolicy/libion/sepolicy.mk
 include device/qcom/sepolicy-legacy-um/SEPolicy.mk
 include hardware/sony/timekeep/sepolicy/SEPolicy.mk
 BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
