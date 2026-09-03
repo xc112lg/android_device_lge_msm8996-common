@@ -381,7 +381,7 @@ PRODUCT_SOONG_NAMESPACES += \
 
 # System Suspend
 PRODUCT_PACKAGES += \
-    android.system.suspend@1.0
+    android.system.suspend
 
 # Telephony
 PRODUCT_PACKAGES += \
