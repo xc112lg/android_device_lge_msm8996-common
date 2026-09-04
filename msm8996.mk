@@ -380,8 +380,6 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/lge
 
 # System Suspend
-PRODUCT_PACKAGES += \
-    android.system.suspend
 
 # Telephony
 PRODUCT_PACKAGES += \
