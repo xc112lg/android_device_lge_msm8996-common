@@ -383,9 +383,6 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/broadcom/libbt \
     hardware/lge
 
-# System Suspend
-PRODUCT_PACKAGES += \
-    android.system.suspend@1.0
 
 # Telephony
 PRODUCT_PACKAGES += \
