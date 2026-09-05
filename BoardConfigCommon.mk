@@ -157,11 +157,18 @@ ENABLE_VENDOR_RIL_SERVICE := true
 BOARD_ROOT_EXTRA_FOLDERS := firmware persist persist-lg sns mpt
 
 # SELinux policies
+include device/lineage/sepolicy/libion/sepolicy.mk
 include device/qcom/sepolicy-legacy-um/SEPolicy.mk
 include hardware/sony/timekeep/sepolicy/SEPolicy.mk
 BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
 PRODUCT_PRIVATE_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/private
 SELINUX_IGNORE_NEVERALLOWS := true
+
+
+
+
+# Vendor Security Patch level
+VENDOR_SECURITY_PATCH := 2019-05-01
 
 # Verity
 # Only needed for signing
