@@ -13,13 +13,6 @@ prebuilt_etc {
 prebuilt_etc {
     name: "init.qcom.rc",
     src: "init.qcom.rc",
-<<<<<<< HEAD
-    required: [
-        "init.power.sh",
-        "init.qcom.graphics.sh",
-    ],
-=======
->>>>>>> 655576e511ae648b3775a4818ebee2dd01a1c916
     sub_dir: "init/hw",
     soc_specific: true,
 }
@@ -54,10 +47,6 @@ sh_binary {
 sh_binary {
     name: "init.qcom.sh",
     src: "init.qcom.sh",
-<<<<<<< HEAD
-    required: ["init.radio.sh"],
-=======
->>>>>>> 655576e511ae648b3775a4818ebee2dd01a1c916
     soc_specific: true,
 }
 
