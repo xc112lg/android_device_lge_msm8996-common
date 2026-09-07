@@ -1,4 +1,4 @@
-#
+B#
 # Copyright (C) 2016 The CyanogenMod Project
 # Copyright (C) 2017-2018 The LineageOS Project
 #
@@ -166,7 +166,7 @@ SELINUX_IGNORE_NEVERALLOWS := true
 
 
 
-
+PRODUCT_FULL_TREBLE_OVERRIDE := false 
 # Vendor Security Patch level
 VENDOR_SECURITY_PATCH := 2019-05-01
 
