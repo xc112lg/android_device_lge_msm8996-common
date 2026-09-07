@@ -94,7 +94,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # eBPF
 PRODUCT_PRODUCT_PROPERTIES += \
-    ro.bpf.kver_override=5.4.299
+    ro.bpf.kver_override=5.10.239
 
 # Factory Reset Protection (FRP)
 PRODUCT_PROPERTY_OVERRIDES += \
