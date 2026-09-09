@@ -3,7 +3,7 @@
 # instead of logical partitions to avoid device mapper issues
 
 # System backing partition (metadata device for super partition)
-/dev/block/bootdevice/by-name/system                 none              emmc    defaults            defaults
+/dev/block/bootdevice/by-name/system                 /system           emmc    defaults            defaults
 
 # Boot and recovery
 /dev/block/bootdevice/by-name/boot                    /boot             emmc    defaults            defaults
