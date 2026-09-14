@@ -23,7 +23,7 @@
 namespace aidl::android::hardware::ir {
 
 inline const std::vector<ConsumerIrFreqRange> kCarrierFreqRanges = {
-    {.min = 25000, .max = 125000},
+    {.minHz = 25000, .maxHz = 125000},
 };
 
 }  // namespace aidl::android::hardware::ir
