@@ -123,6 +123,10 @@ cc_prebuilt_binary {
         "SoundAmplifierPrebuilt_v4.8.758106410",
         "PrebuiltBugle",
         "AxSandbox",
+        "ReFra",
+        "Chocola",
+        "Vanilla",
+        "Via",
         
     ],
     strip: {
