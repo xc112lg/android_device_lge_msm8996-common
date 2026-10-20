@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2026 The LineageOS Project
+ 
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <string name="doze_settings_help_title">Ambient display help</string>
+    <string name="doze_settings_help_text">Ambient display shows notifications and time on the screen while the device is idle. Wake on gesture, pick up and pocket detection control when the screen turns on automatically.</string>
+</resources>
+ 
